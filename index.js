@@ -74,7 +74,7 @@ class ServerlessPluginTypescriptExpress {
   async runBuild (tsConfigPath = '.') {
     this.serverless.cli.log('Compiling ...');
     const pathConfig = path.join('./node_modules', '/.bin', 'tsc --build');
-    return execPromise(`${pathConfig} -pretty -p ${tsConfigPath}`);
+    return execPromise(`${pathConfig} -pretty ${tsConfigPath}`);
   }
 
   listPaths (dir, filelist = []) {
