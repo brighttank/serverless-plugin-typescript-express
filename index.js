@@ -7,17 +7,6 @@ const inDirectory = 'src';
 const exec = require('child_process').exec;
 const defaultOutDir = 'dist';
 
-const execPromise = (command) => {
-  return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
-      if (stderr) {
-        return reject(stderr);
-      }
-      return resolve();
-    })
-  });
-}
-
 class ServerlessPluginTypescriptExpress {
   constructor (serverless, options) {
     this.serverless = serverless;
@@ -73,8 +62,16 @@ class ServerlessPluginTypescriptExpress {
 
   async runBuild (tsConfigPath = '.') {
     this.serverless.cli.log('Compiling ...');
-    const pathConfig = path.join('./node_modules', '/.bin', 'tsc --build');
-    return execPromise(`${pathConfig} -pretty ${tsConfigPath}`);
+    const command = './node_modules/.bin/tsc --build --pretty ${tsConfigPath}';
+    return new Promise((resolve, reject) => {
+      exec(command, (error, stdout, stderr) => {
+        this.serverless.cli.log(stdout);
+        if (stderr) {
+          return reject(stderr);
+        }
+        return resolve();
+      })
+    });
   }
 
   listPaths (dir, filelist = []) {
