@@ -1,6 +1,6 @@
 {
     "name": "serverless-plugin-typescript-express",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "description": "Compile ts files to js with Serverless Framework",
     "main": "index.js",
     "author": "eliasjcjunior",

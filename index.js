@@ -35,9 +35,7 @@ class ServerlessPluginTypescriptExpress {
     const watcher = chokidar.watch(files);
     this.serverless.cli.log('Serverless offline is running. Watching is enabled!');
     watcher.on('change', async (file, stats) => {
-      if (stats) {
         await this.runBuild(this.tsConfigPath);
-      }
     });
   }
 
